@@ -20,7 +20,7 @@ class BooksApp extends React.Component {
 
   updateBookShelf = (book) => {
     this.setState((state) => ({
-        books: state.books.filter((element) => (element.bookId !== book.bookId)).concat([ book ])
+        books: state.books.filter((element) => (element.id !== book.id)).concat([ book ])
     }));
     // update onw book's shelf of server
     BooksAPI.update(book, book.bookShelf);
@@ -32,7 +32,7 @@ class BooksApp extends React.Component {
         imageURL: rawBook.imageLinks.smallThumbnail,
         authors: rawBook.authors,
         bookName: rawBook.title,
-        bookId: rawBook.id,
+        id: rawBook.id,
         bookShelf: rawBook.shelf
         })
       );
