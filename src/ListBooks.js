@@ -4,11 +4,22 @@ import PropTypes from 'prop-types'
 
 class ListBooks extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    onUpdateBookShelf: PropTypes.func.isRequired
+  }
+
+  state = {
+    value: ""
+  }
+
+  handleChange(event, book) {
+    book.bookShelf = event.target.value;
+    this.props.onUpdateBookShelf(book);
   }
 
   render() {
     const {books} = this.props;
+
     return (<div className="list-books">
       <div className="list-books-title">
         <h1>MyReads</h1>
@@ -30,7 +41,9 @@ class ListBooks extends Component {
                             backgroundImage: `url(${book.imageURL})`
                           }}></div>
                         <div className="book-shelf-changer">
-                          <select defaultValue="currentlyReading">
+                          <select value={book.bookShelf} onChange={(event) => (
+                            this.handleChange(event, book)
+                          )}>
                             <option value="none" disabled="disabled">Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -61,7 +74,9 @@ class ListBooks extends Component {
                             backgroundImage: `url(${book.imageURL})`
                           }}></div>
                         <div className="book-shelf-changer">
-                          <select defaultValue="wantToRead">
+                          <select value={book.bookShelf} onChange={(event) => (
+                            this.handleChange(event, book)
+                          )}>
                             <option value="none" disabled="disabled">Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -92,7 +107,9 @@ class ListBooks extends Component {
                             backgroundImage: `url(${book.imageURL})`
                           }}></div>
                         <div className="book-shelf-changer">
-                          <select defaultValue="read">
+                          <select value={book.bookShelf} onChange={(event) => (
+                            this.handleChange(event, book)
+                          )}>
                             <option value="none" disabled="disabled">Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
