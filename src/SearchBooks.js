@@ -7,7 +7,6 @@ import * as BooksAPI from './BooksAPI';
 
 class SearchBooks extends Component {
   static propTypes = {
-    // onSearchBooks: PropTypes.func.isRequired
     books: PropTypes.array.isRequired
   }
 
@@ -17,23 +16,37 @@ class SearchBooks extends Component {
   }
 
   updateQuery(query) {
-    this.setState({query: query});
+    console.log(query);
     this.searchBooks(query)
-
-    // this.props.onSearchBooks(query);
   }
 
   clearQuery() {
-    this.updateQuery('');
+    console.log('clear query');
+    this.setState({
+      query: '',
+      booksBySearched: []
+    });
   }
 
   searchBooks(query) {
+    this.setState({query: query});
+
     if (query.trim() !== '') {
       BooksAPI.search(query).then((rawBooks) => {
-        console.log(rawBooks);
-        const booksBySearched = rawBooks.map((rawBook) => ({imageURL: rawBook.imageLinks.smallThumbnail, authors: rawBook.authors, bookName: rawBook.title, id: rawBook.id, bookShelf: "none"}));
-        this.setState({booksBySearched: booksBySearched});
+        if (rawBooks !== []) {
+          const booksBySearched = rawBooks.map((rawBook) => ({
+            imageURL: rawBook.imageLinks.smallThumbnail,
+            authors: rawBook.authors,
+            bookName: rawBook.title,
+            id: rawBook.id,
+            bookShelf: "none"}));
+          this.setState({booksBySearched: booksBySearched});
+        } else {
+          this.setState({booksBySearched: []});
+        }
       });
+    } else {
+      this.setState({booksBySearched: []});
     }
   }
 
@@ -46,22 +59,20 @@ class SearchBooks extends Component {
     const {query, booksBySearched} = this.state;
     const {books} = this.props;
 
-    // console.log(booksBySearched);
-    /*let showingBooks;
-    // query from server
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i');
-      showingBooks = books.filter((book) => match.test(book.bookName));
-    } else {
+    if (query && books !== []) {
+      // const match = new RegExp(escapeRegExp(query), 'i');
+      // matchedBooks = books.filter((book) => match.test(book.bookName));
+      for (let i = 0; i < books.length; i++) {
+        const constBook = books[i];
+        booksBySearched.map((book) => {
+          if (book.id === books[i].id) {
+            book.bookShelf = constBook.bookShelf;
+          }
+          return book;
+        });
+      }
+    }
 
-    }
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), 'i');
-      showingContacts = contacts.filter((contact) => match.test(contact.name));
-    } else {
-      showingContacts = contacts;
-    }
-    showingContacts.sort(sortBy('name'));*/
     return (<div className="search-books">
       <div className="search-books-bar">
         <Link className="close-search" to='/'>Close</Link>
@@ -75,7 +86,11 @@ class SearchBooks extends Component {
               you don't find a specific author or title. Every search is limited by search terms.
             */
           }
-          <input type="text" placeholder="Search by title" value={query} onChange={(event) => this.updateQuery(event.target.value)}/>
+          <input
+          type="text"
+          placeholder="Search by title or author"
+          value={query}
+          onChange={(event) => this.updateQuery(event.target.value)}/>
         </div>
       </div>
       <div className="search-books-results">
