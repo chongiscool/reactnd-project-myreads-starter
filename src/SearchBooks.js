@@ -35,7 +35,8 @@ class SearchBooks extends Component {
       BooksAPI.search(query).then((rawBooks) => {
         if (rawBooks !== []) {
           const booksBySearched = rawBooks.map((rawBook) => ({
-            imageURL: rawBook.imageLinks.smallThumbnail,
+            //imageURL: rawBook.imageLinks.smallThumbnail,
+            imageURL: rawBook.imageLinks && rawBook.imageLinks.smallThumbnail ? rawBook.imageLinks.smallThumbnail : 'http://via.placeholder.com/128x193?text=No%20Cover',
             authors: rawBook.authors,
             bookName: rawBook.title,
             id: rawBook.id,
@@ -106,7 +107,7 @@ class SearchBooks extends Component {
                     }}></div>
                   <div className="book-shelf-changer">
                     <select value={book.bookShelf} onChange={(event) => (this.handleChange(event, book))}>
-                      <option value="none" disabled="disabled">Move to...</option>
+                      <option value="moveTo" disabled="disabled">Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
