@@ -6,10 +6,11 @@ Of course, you are free to start this project from scratch if you wish! Just be 
 
 ## TL;DR
 
-To get started developing right away:
+## **Quick Run This Project on Your Local Machine.**
 
 * install all project dependencies with `npm install`
-* start the development server with `npm start`
+* install necessary module `react-router-dom` and `prop-types`
+* run the project via `npm start` or `yarn start`\( if you installed `yarn`)
 
 ## What You're Getting
 ```bash
@@ -25,6 +26,8 @@ To get started developing right away:
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── ListBooks.js # Show all book in main page.
+    ├── SearchBooks.js # Show all searched books.
     ├── icons # Helpful images for your app. Use at your discretion.
     │   ├── add.svg
     │   ├── arrow-back.svg
