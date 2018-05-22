@@ -5,6 +5,7 @@ import {PropTypes} from 'prop-types';
 //import sortBy from 'sort-by';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
+import {DebounceInput} from 'react-debounce-input';
 
 class SearchBooks extends Component {
   static propTypes = {
@@ -83,11 +84,14 @@ class SearchBooks extends Component {
               you don't find a specific author or title. Every search is limited by search terms.
             */
           }
-          <input
-          type="text"
-          placeholder="Search by title or author"
-          value={query}
-          onChange={(event) => this.updateQuery(event.target.value)}/>
+          
+          <DebounceInput
+            minLength={2}
+            debounceTimeout={1500}
+            type='text'
+            placeholder='Search by title or author'
+            value={query}
+            onChange={(event) => this.updateQuery(event.target.value)} />
         </div>
       </div>
       <div className="search-books-results">

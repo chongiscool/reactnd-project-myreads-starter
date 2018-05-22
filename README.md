@@ -9,7 +9,7 @@ Of course, you are free to start this project from scratch if you wish! Just be 
 ## **Quick Run This Project on Your Local Machine.**
 
 * install all project dependencies with `npm install`
-* install necessary module `react-router-dom` and `prop-types`
+* install necessary module `react-router-dom`, `prop-types` and `react-debounce-input`
 * run the project via `npm start` or `yarn start`\( if you installed `yarn`)
 
 ## What You're Getting
