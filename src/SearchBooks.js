@@ -35,7 +35,7 @@ class SearchBooks extends Component {
 
     if (query.trim() !== '') {
       BooksAPI.search(query).then((rawBooks) => {
-        if (rawBooks !== []) {
+        if (Array.isArray(rawBooks)) {
           const booksBySearched = rawBooks.map((rawBook) => ({
             //imageURL: rawBook.imageLinks.smallThumbnail,
             imageURL: rawBook.imageLinks && rawBook.imageLinks.smallThumbnail ? rawBook.imageLinks.smallThumbnail : 'http://via.placeholder.com/128x193?text=No%20Cover',
@@ -45,7 +45,8 @@ class SearchBooks extends Component {
             bookShelf: "none"}));
           this.setState({booksBySearched: booksBySearched});
         } else {
-          this.setState({booksBySearched: []});
+          console.log(rawBooks);
+          this.setState({booksBySearched: rawBooks});
         }
       });
     } else {
@@ -57,7 +58,7 @@ class SearchBooks extends Component {
     const {query, booksBySearched} = this.state;
     const {books, onUpdateBookShelf} = this.props;
 
-    if (query && books !== []) {
+    if (query && books !== [] && Array.isArray(booksBySearched)) {
       // const match = new RegExp(escapeRegExp(query), 'i');
       // matchedBooks = books.filter((book) => match.test(book.bookName));
       for (let i = 0; i < books.length; i++) {
@@ -84,7 +85,7 @@ class SearchBooks extends Component {
               you don't find a specific author or title. Every search is limited by search terms.
             */
           }
-          
+
           <DebounceInput
             minLength={2}
             debounceTimeout={1500}
@@ -97,9 +98,9 @@ class SearchBooks extends Component {
       <div className="search-books-results">
         <ol className="books-grid">
           {
-            booksBySearched.map((book) => (<li key={book.id} className='book-list-item'>
+            Array.isArray(booksBySearched) ? booksBySearched.map((book) => (<li key={book.id} className='book-list-item'>
               <Book book={book} onUpdateBookShelf={onUpdateBookShelf} />
-            </li>))
+            </li>)) : (<li key={100} className='no-result-found'>No Result Found</li>)
           }
         </ol>
       </div>
