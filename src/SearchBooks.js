@@ -4,6 +4,7 @@ import {PropTypes} from 'prop-types';
 //import escapeRegExp from 'escape-string-regexp';
 //import sortBy from 'sort-by';
 import * as BooksAPI from './BooksAPI';
+import Book from './Book';
 
 class SearchBooks extends Component {
   static propTypes = {
@@ -51,14 +52,9 @@ class SearchBooks extends Component {
     }
   }
 
-  handleChange(event, book) {
-    book.bookShelf = event.target.value;
-    this.props.onUpdateBookShelf(book);
-  }
-
   render() {
     const {query, booksBySearched} = this.state;
-    const {books} = this.props;
+    const {books, onUpdateBookShelf} = this.props;
 
     if (query && books !== []) {
       // const match = new RegExp(escapeRegExp(query), 'i');
@@ -98,26 +94,7 @@ class SearchBooks extends Component {
         <ol className="books-grid">
           {
             booksBySearched.map((book) => (<li key={book.id} className='book-list-item'>
-              <div className="book">
-                <div className="book-top">
-                  <div className="book-cover" style={{
-                      width: 128,
-                      height: 193,
-                      backgroundImage: `url(${book.imageURL})`
-                    }}></div>
-                  <div className="book-shelf-changer">
-                    <select value={book.bookShelf} onChange={(event) => (this.handleChange(event, book))}>
-                      <option value="moveTo" disabled="disabled">Move to...</option>
-                      <option value="currentlyReading">Currently Reading</option>
-                      <option value="wantToRead">Want to Read</option>
-                      <option value="read">Read</option>
-                      <option value="none">None</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="book-title">{book.bookName}</div>
-                <div className="book-authors">{book.authors}</div>
-              </div>
+              <Book book={book} onUpdateBookShelf={onUpdateBookShelf} />
             </li>))
           }
         </ol>
