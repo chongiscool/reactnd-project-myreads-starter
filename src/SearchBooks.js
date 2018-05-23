@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
-//import escapeRegExp from 'escape-string-regexp';
-//import sortBy from 'sort-by';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import {DebounceInput} from 'react-debounce-input';
@@ -17,8 +15,9 @@ class SearchBooks extends Component {
     query: ''
   }
 
+  // updaet query
   updateQuery(query) {
-    console.log(query);
+    console.log(query)
     this.searchBooks(query)
   }
 
@@ -37,7 +36,6 @@ class SearchBooks extends Component {
       BooksAPI.search(query).then((rawBooks) => {
         if (Array.isArray(rawBooks)) {
           const booksBySearched = rawBooks.map((rawBook) => ({
-            //imageURL: rawBook.imageLinks.smallThumbnail,
             imageURL: rawBook.imageLinks && rawBook.imageLinks.smallThumbnail ? rawBook.imageLinks.smallThumbnail : 'http://via.placeholder.com/128x193?text=No%20Cover',
             authors: rawBook.authors,
             bookName: rawBook.title,
@@ -76,16 +74,6 @@ class SearchBooks extends Component {
       <div className="search-books-bar">
         <Link className="close-search" to='/'>Close</Link>
         <div className="search-books-input-wrapper">
-          {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */
-          }
-
           <DebounceInput
             minLength={2}
             debounceTimeout={1500}

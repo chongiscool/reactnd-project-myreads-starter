@@ -8,13 +8,6 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false,
     books: []
   }
 
@@ -25,61 +18,6 @@ class BooksApp extends React.Component {
     // update onw book's shelf of server
     BooksAPI.update(book, book.bookShelf);
   }
-
-  /*refactorBooksArray(booksArray, defaultShelf) {
-    // one time if statement check, forever.
-    if (defaultShelf === 'none') {
-       return booksArray.map((rawBook) => ({
-          imageURL: rawBook.imageLinks.smallThumbnail,
-          authors: rawBook.authors,
-          bookName: rawBook.title,
-          id: rawBook.id,
-          bookShelf: defaultShelf
-        }));
-    } else {
-      return booksArray.map((rawBook) => ({
-        imageURL: rawBook.imageLinks.smallThumbnail,
-        authors: rawBook.authors,
-        bookName: rawBook.title,
-        id: rawBook.id,
-        bookShelf: rawBook.shelf
-      }));
-    }
-  }*/
-  // searchBooks(query) {
-  //   console.log("got search: "+query);
-    // BooksAPI.search(query).then((rawBooks) => {
-    //   // console.log(rawBooks);
-    //   const booksBySearched = rawBooks.map((rawBook) => ({
-    //     imageURL: rawBook.imageLinks.smallThumbnail,
-    //     authors: rawBook.authors,
-    //     bookName: rawBook.title,
-    //     id: rawBook.id,
-    //     bookShelf: "none"
-    //     })
-    //   );
-    //   console.log(booksBySearched);
-    //   this.setState({booksBySearched: booksBySearched});
-    // });
-    // react
-    // BooksAPI.search(query).then((rawBooks) => {
-    //   console.log("rawBooks\n"+rawBooks);
-    //   // const booksBySearched = rawBooks.map((rawBook) => ({
-    //   //   imageURL: rawBook.imageLinks.smallThumbnail,
-    //   //   authors: rawBook.authors,
-    //   //   bookName: rawBook.title,
-    //   //   id: rawBook.id,
-    //   //   bookShelf: "none"
-    //   //   })
-    //   // );
-    //   // this.setState({booksBySearched: booksBySearched});
-    // });
-
-  // }
-
-  // componentWillReceiveProps() {
-  //
-  // }
 
   componentDidMount() {
     BooksAPI.getAll().then((rawBooks) => {
@@ -96,8 +34,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    // console.log("booksBySearched:"+this.state.booksBySearched);
-    // console.log("books:"+this.state.books);
     return (
       <div className="app">
         <Route exact path='/search' render={() => (

@@ -1,16 +1,17 @@
 # MyReads Project
 
+## Quick Run This Project on Your Local Machine
+
+* First install all project dependencies with `npm install` in project root directory.
+* Second install necessary module `react-router-dom`, `prop-types` and `react-debounce-input` in project root directory. type command such as: `npm install --save react-router-dom` for install react router module. And same others do.
+* run the project via `npm start` or `yarn start`\( if you installed `yarn`)
+---------------------------------------
+
 This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
 
 Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
 
 ## TL;DR
-
-## **Quick Run This Project on Your Local Machine.**
-
-* install all project dependencies with `npm install`
-* install necessary module `react-router-dom`, `prop-types` and `react-debounce-input`
-* run the project via `npm start` or `yarn start`\( if you installed `yarn`)
 
 ## What You're Getting
 ```bash
